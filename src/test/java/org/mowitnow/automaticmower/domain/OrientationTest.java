@@ -29,9 +29,9 @@ public class OrientationTest {
 
     @ParameterizedTest
     @MethodSource("provideRotationLeftArguments")
-    public void should_rotate_orientation_left(Orientation initialOrientation, Orientation expectedOrientation) {
+    public void should_return_orientation_at_the_left(Orientation initialOrientation, Orientation expectedOrientation) {
         // WHEN
-        Orientation actualOrientation = initialOrientation.rotateLeft();
+        Orientation actualOrientation = initialOrientation.getOrientationAtLeft();
 
         // THEN
         Assertions.assertEquals(expectedOrientation, actualOrientation);
@@ -39,9 +39,9 @@ public class OrientationTest {
 
     @ParameterizedTest
     @MethodSource("provideRotationRightArguments")
-    public void should_rotate_orientation_right(Orientation initialOrientation, Orientation expectedOrientation) {
+    public void should_return_orientation_at_the_right(Orientation initialOrientation, Orientation expectedOrientation) {
         // WHEN
-        Orientation actualOrientation = initialOrientation.rotateRight();
+        Orientation actualOrientation = initialOrientation.getOrientationAtRight();
 
         // THEN
         Assertions.assertEquals(expectedOrientation, actualOrientation);

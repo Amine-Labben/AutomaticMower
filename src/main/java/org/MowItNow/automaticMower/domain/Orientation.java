@@ -20,12 +20,16 @@ public enum Orientation {
         return position;
     }
 
-    public Orientation rotateLeft() {
+    public String getLetter() {
+        return letter;
+    }
+
+    public Orientation getOrientationAtLeft() {
         var resultPosition = this.position == 1 ? Orientation.values().length : this.position - 1;
         return Orientation.getByPosition(resultPosition);
     }
 
-    public Orientation rotateRight() {
+    public Orientation getOrientationAtRight() {
         var resultPosition = this.position == Orientation.values().length ? 1 : this.position + 1;
         return Orientation.getByPosition(resultPosition);
     }
