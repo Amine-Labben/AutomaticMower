@@ -15,7 +15,6 @@ public class Mower {
         this.orientation = orientation;
     }
 
-
     public UUID getId() {
         return id;
     }
