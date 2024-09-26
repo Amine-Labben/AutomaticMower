@@ -9,10 +9,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class MowInputParser implements IMowInputParser {
@@ -21,10 +18,7 @@ public class MowInputParser implements IMowInputParser {
     @Override
     public List<MowerTask> parseMowingTasks(String filePath) throws IOException, URISyntaxException, InvalidInputException {
         var fileLines = getFileLines(filePath);
-
-        if (fileLines.isEmpty()) {
-            throw new InvalidInputException("empty file");
-        }
+        validateLinesSize(fileLines);
 
         Area area = parseArea(fileLines.getFirst());
 
@@ -38,14 +32,28 @@ public class MowInputParser implements IMowInputParser {
     }
 
     private List<String> getFileLines(String filePath) throws IOException, URISyntaxException {
-        var path = Paths.get(this.getClass().getClassLoader().getResource(filePath).toURI());
+        var path = Paths.get(Objects.requireNonNull(this.getClass().getClassLoader().getResource(filePath)).toURI());
         return Files.readAllLines(path, StandardCharsets.UTF_8);
+    }
+
+    private void validateLinesSize(List<String> fileLines) throws InvalidInputException{
+        if (fileLines.isEmpty()) {
+            throw new InvalidInputException("Input file must not be empty");
+        }
+
+        if (fileLines.size() == 1) {
+            throw new InvalidInputException("Input file must have at least one mower");
+        }
+
+        if (fileLines.size() % 2 == 0 ) {
+            throw new InvalidInputException("Every mower task must have be defined by exactly two lines");
+        }
     }
 
     private static Area parseArea(String line) throws InvalidInputException {
         String[] dimensions = line.split(SEPARATOR);
         if (dimensions.length != 2) {
-            throw new InvalidInputException("area dimensions should contain exactly two numbers");
+            throw new InvalidInputException("Area dimensions should contain exactly two numbers");
         }
 
         try {
@@ -53,12 +61,12 @@ public class MowInputParser implements IMowInputParser {
             int height = Integer.parseInt(dimensions[1]);
 
             if (width < 0 || height < 0) {
-                throw new InvalidInputException("area dimensions must be positive numbers");
+                throw new InvalidInputException("Area dimensions must be positive numbers");
             }
 
             return new Area(width, height);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("area dimensions must be valid numbers");
+            throw new InvalidInputException("Area dimensions must be valid numbers");
         }
     }
 
@@ -86,11 +94,12 @@ public class MowInputParser implements IMowInputParser {
     private static List<Instruction> parseInstructions(String line) throws InvalidInputException {
         List<Instruction> instructions = new ArrayList<>();
         for (char c : line.toCharArray()) {
-            Instruction instruction = Instruction.getByCode(String.valueOf(c));
-            if (instruction == null) {
+            try{
+                Instruction instruction = Instruction.getByCode(String.valueOf(c));
+                instructions.add(instruction);
+            } catch(NoSuchElementException e) {
                 throw new InvalidInputException("Invalid instruction: " + c);
             }
-            instructions.add(instruction);
         }
         return instructions;
     }
