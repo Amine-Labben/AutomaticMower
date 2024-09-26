@@ -1,5 +1,6 @@
 package org.mowitnow.automaticmower.domain;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Mower {
@@ -46,6 +47,19 @@ public class Mower {
 
     @Override
     public String toString() {
-        return String.join(" ", position.toString(), orientation.getLetter());
+        return String.join(" ", position.toString(), orientation.getCode());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mower mower = (Mower) o;
+        return position.equals(mower.position) && orientation == mower.orientation && area.equals(mower.area);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, orientation, area);
     }
 }

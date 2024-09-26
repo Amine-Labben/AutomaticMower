@@ -8,11 +8,11 @@ public enum Orientation {
     SOUTH("S", 3),
     WEST("W", 4);
 
-    private final String letter;
+    private final String code;
     private final int position;
 
-    Orientation(String letter, int position) {
-        this.letter = letter;
+    Orientation(String code, int position) {
+        this.code = code;
         this.position = position;
     }
 
@@ -20,8 +20,8 @@ public enum Orientation {
         return position;
     }
 
-    public String getLetter() {
-        return letter;
+    public String getCode() {
+        return code;
     }
 
     public Orientation getOrientationAtLeft() {
@@ -37,6 +37,12 @@ public enum Orientation {
     private static Orientation getByPosition(int position) {
         return Arrays.stream(Orientation.values())
                 .filter(orientation -> orientation.getPosition() == position)
+                .findFirst().orElseThrow();
+    }
+
+    public static Orientation getByCode(String code) {
+        return Arrays.stream(Orientation.values())
+                .filter(orientation -> orientation.getCode().equals(code))
                 .findFirst().orElseThrow();
     }
 }
