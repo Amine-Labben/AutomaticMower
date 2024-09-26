@@ -1,14 +1,23 @@
 package org.mowitnow.automaticmower.domain;
 
+import java.util.UUID;
+
 public class Mower {
-    private Area area;
+    private final UUID id;
+    private final Area area;
     private Position position;
     private Orientation orientation;
 
-    public Mower(Area area, Position position, Orientation orientation) {
+    public Mower(UUID id, Area area, Position position, Orientation orientation) {
+        this.id = id;
         this.area = area;
         this.position = position;
         this.orientation = orientation;
+    }
+
+
+    public UUID getId() {
+        return id;
     }
 
     public Position getPosition() {
