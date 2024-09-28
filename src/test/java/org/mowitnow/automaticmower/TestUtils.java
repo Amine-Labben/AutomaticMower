@@ -3,13 +3,12 @@ package org.mowitnow.automaticmower;
 import org.mowitnow.automaticmower.domain.*;
 
 import java.util.List;
-import java.util.UUID;
 
 public class TestUtils {
     public static List<MowerTask> getMockMowerTasks() {
         var area = new Area(5, 5);
 
-        var mower1 = new Mower(UUID.randomUUID(), area, new Position(1, 2), Orientation.NORTH);
+        var mower1 = new Mower(area, new Position(1, 2), Orientation.NORTH);
         var instructionsForMower1 = List.of(
                 Instruction.ROTATE_LEFT,
                 Instruction.ADVANCE,
@@ -22,7 +21,7 @@ public class TestUtils {
                 Instruction.ADVANCE
         );
 
-        var mower2 = new Mower(UUID.randomUUID(), area, new Position(3, 3), Orientation.EST);
+        var mower2 = new Mower(area, new Position(3, 3), Orientation.EST);
         var instructionsForMower2 = List.of(
                 Instruction.ADVANCE,
                 Instruction.ADVANCE,

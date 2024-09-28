@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.UUID;
 
 public class MowerTaskTest {
     @Test
     public void should_execute_the_mower_automatic_task() {
         // GIVEN
-        var mower = new Mower(UUID.randomUUID(), new Area(5, 5), new Position(1, 2), Orientation.NORTH);
+        var mower = new Mower(new Area(5, 5), new Position(1, 2), Orientation.NORTH);
         var instructions = List.of(
                 Instruction.ROTATE_LEFT,
                 Instruction.ADVANCE,

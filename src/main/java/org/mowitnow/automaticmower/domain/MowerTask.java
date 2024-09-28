@@ -16,17 +16,4 @@ public record MowerTask(Mower mower, List<Instruction> instructions) {
             case ADVANCE -> mower.advance();
         }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MowerTask mowerTask = (MowerTask) o;
-        return mower.equals(mowerTask.mower()) && instructions.equals(mowerTask.instructions());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mower, instructions);
-    }
 }

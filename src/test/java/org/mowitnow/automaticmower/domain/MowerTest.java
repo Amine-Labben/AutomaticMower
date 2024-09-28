@@ -3,15 +3,11 @@ package org.mowitnow.automaticmower.domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 public class MowerTest {
-    private final static UUID uuid = UUID.randomUUID();
-
     @Test
     public void should_turn_left() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(2, 4), Orientation.NORTH);
+        var mower = new Mower(new Area(5, 4), new Position(2, 4), Orientation.NORTH);
 
         // WHEN
         mower.turnLeft();
@@ -24,7 +20,7 @@ public class MowerTest {
     @Test
     public void should_turn_right() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(2, 4), Orientation.NORTH);
+        var mower = new Mower(new Area(5, 4), new Position(2, 4), Orientation.NORTH);
 
         // WHEN
         mower.turnRight();
@@ -37,7 +33,7 @@ public class MowerTest {
     @Test
     public void should_advance_north() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(1, 1), Orientation.NORTH);
+        var mower = new Mower(new Area(5, 4), new Position(1, 1), Orientation.NORTH);
 
         // WHEN
         mower.advance();
@@ -50,7 +46,7 @@ public class MowerTest {
     @Test
     public void should_advance_est() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(1, 1), Orientation.EST);
+        var mower = new Mower(new Area(5, 4), new Position(1, 1), Orientation.EST);
 
         // WHEN
         mower.advance();
@@ -64,7 +60,7 @@ public class MowerTest {
     @Test
     public void should_advance_south() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(1, 1), Orientation.SOUTH);
+        var mower = new Mower(new Area(5, 4), new Position(1, 1), Orientation.SOUTH);
 
         // WHEN
         mower.advance();
@@ -77,7 +73,7 @@ public class MowerTest {
     @Test
     public void should_advance_west() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(1, 1), Orientation.WEST);
+        var mower = new Mower(new Area(5, 4), new Position(1, 1), Orientation.WEST);
 
         // WHEN
         mower.advance();
@@ -90,7 +86,7 @@ public class MowerTest {
     @Test
     public void should_not_advance_outside_area() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(5, 4), Orientation.EST);
+        var mower = new Mower(new Area(5, 4), new Position(5, 4), Orientation.EST);
 
         // WHEN
         mower.advance();
@@ -103,7 +99,7 @@ public class MowerTest {
     @Test
     public void should_convert_mower_to_string() {
         // GIVEN
-        var mower = new Mower(uuid, new Area(5, 4), new Position(1, 2), Orientation.EST);
+        var mower = new Mower(new Area(5, 4), new Position(1, 2), Orientation.EST);
 
         // WHEN
         var result = mower.toString();

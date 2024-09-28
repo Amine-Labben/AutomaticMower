@@ -85,7 +85,7 @@ public class MowInputParser implements IMowInputParser {
                 throw new InvalidInputException("Mower position is out of area");
             }
 
-            return new Mower(UUID.randomUUID(), area, new Position(x, y), Orientation.getByCode(orientation));
+            return new Mower(area, new Position(x, y), Orientation.getByCode(orientation));
         } catch (NumberFormatException e) {
             throw new InvalidInputException("Mower position must contain valid integers.");
         }
