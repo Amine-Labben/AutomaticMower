@@ -30,11 +30,19 @@ public class Mower {
     }
 
     public void advance() {
-        this.position = switch (this.orientation) {
-            case NORTH -> new Position(this.position.x(), Math.min(this.area.height(), this.position.y() + 1));
-            case EST -> new Position(Math.min(this.area.width(), this.position.x() + 1), this.position.y());
-            case SOUTH -> new Position(this.position.x(), Math.max(0, this.position.y() - 1));
-            case WEST -> new Position(Math.max(0, this.position.x() - 1), this.position.y());
+        var nextPosition = getNextPosition();
+
+        if(!this.area.isOutOfBounds(nextPosition)) {
+            this.position = nextPosition;
+        }
+    }
+
+    private Position getNextPosition(){
+        return switch (this.orientation) {
+            case NORTH -> new Position(this.position.x(),this.position.y() + 1);
+            case EST -> new Position(this.position.x() + 1, this.position.y());
+            case SOUTH -> new Position(this.position.x(), this.position.y() - 1);
+            case WEST -> new Position(this.position.x() - 1, this.position.y());
         };
     }
 
